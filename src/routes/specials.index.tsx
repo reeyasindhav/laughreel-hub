@@ -10,9 +10,8 @@ const DESC =
   "Browse every Indian stand-up special on Laughreel. Filter by language — Hindi, Hinglish, English — and by sub-genre from observational to political satire.";
 
 export const Route = createFileRoute("/specials/")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    genre: typeof search["genre"] === "string" ? search["genre"] : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { genre?: string } =>
+    typeof search["genre"] === "string" ? { genre: search["genre"] } : {},
   head: () => ({
     meta: [
       { title: TITLE },
