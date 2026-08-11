@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ClipsRouteImport } from './routes/clips'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as ToursRouteImport } from './routes/tours'
+import { Route as ComediansIndexRouteImport } from './routes/comedians.index'
+import { Route as ComediansSlugRouteImport } from './routes/comedians.$slug'
+import { Route as SpecialsIndexRouteImport } from './routes/specials.index'
+import { Route as SpecialsIdRouteImport } from './routes/specials.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClipsRoute = ClipsRouteImport.update({
+  id: '/clips',
+  path: '/clips',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToursRoute = ToursRouteImport.update({
+  id: '/tours',
+  path: '/tours',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComediansIndexRoute = ComediansIndexRouteImport.update({
+  id: '/comedians/',
+  path: '/comedians/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComediansSlugRoute = ComediansSlugRouteImport.update({
+  id: '/comedians/$slug',
+  path: '/comedians/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpecialsIndexRoute = SpecialsIndexRouteImport.update({
+  id: '/specials/',
+  path: '/specials/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpecialsIdRoute = SpecialsIdRouteImport.update({
+  id: '/specials/$id',
+  path: '/specials/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/clips': typeof ClipsRoute
+  '/pricing': typeof PricingRoute
+  '/tours': typeof ToursRoute
+  '/comedians/$slug': typeof ComediansSlugRoute
+  '/specials/$id': typeof SpecialsIdRoute
+  '/comedians/': typeof ComediansIndexRoute
+  '/specials/': typeof SpecialsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/clips': typeof ClipsRoute
+  '/pricing': typeof PricingRoute
+  '/tours': typeof ToursRoute
+  '/comedians/$slug': typeof ComediansSlugRoute
+  '/specials/$id': typeof SpecialsIdRoute
+  '/comedians': typeof ComediansIndexRoute
+  '/specials': typeof SpecialsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/clips': typeof ClipsRoute
+  '/pricing': typeof PricingRoute
+  '/tours': typeof ToursRoute
+  '/comedians/$slug': typeof ComediansSlugRoute
+  '/specials/$id': typeof SpecialsIdRoute
+  '/comedians/': typeof ComediansIndexRoute
+  '/specials/': typeof SpecialsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/clips'
+    | '/pricing'
+    | '/tours'
+    | '/comedians/$slug'
+    | '/specials/$id'
+    | '/comedians/'
+    | '/specials/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/clips'
+    | '/pricing'
+    | '/tours'
+    | '/comedians/$slug'
+    | '/specials/$id'
+    | '/comedians'
+    | '/specials'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/clips'
+    | '/pricing'
+    | '/tours'
+    | '/comedians/$slug'
+    | '/specials/$id'
+    | '/comedians/'
+    | '/specials/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ClipsRoute: typeof ClipsRoute
+  PricingRoute: typeof PricingRoute
+  ToursRoute: typeof ToursRoute
+  ComediansSlugRoute: typeof ComediansSlugRoute
+  SpecialsIdRoute: typeof SpecialsIdRoute
+  ComediansIndexRoute: typeof ComediansIndexRoute
+  SpecialsIndexRoute: typeof SpecialsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +156,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clips': {
+      id: '/clips'
+      path: '/clips'
+      fullPath: '/clips'
+      preLoaderRoute: typeof ClipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tours': {
+      id: '/tours'
+      path: '/tours'
+      fullPath: '/tours'
+      preLoaderRoute: typeof ToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comedians/': {
+      id: '/comedians/'
+      path: '/comedians'
+      fullPath: '/comedians/'
+      preLoaderRoute: typeof ComediansIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comedians/$slug': {
+      id: '/comedians/$slug'
+      path: '/comedians/$slug'
+      fullPath: '/comedians/$slug'
+      preLoaderRoute: typeof ComediansSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/specials/': {
+      id: '/specials/'
+      path: '/specials'
+      fullPath: '/specials/'
+      preLoaderRoute: typeof SpecialsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/specials/$id': {
+      id: '/specials/$id'
+      path: '/specials/$id'
+      fullPath: '/specials/$id'
+      preLoaderRoute: typeof SpecialsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ClipsRoute: ClipsRoute,
+  PricingRoute: PricingRoute,
+  ToursRoute: ToursRoute,
+  ComediansSlugRoute: ComediansSlugRoute,
+  SpecialsIdRoute: SpecialsIdRoute,
+  ComediansIndexRoute: ComediansIndexRoute,
+  SpecialsIndexRoute: SpecialsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
