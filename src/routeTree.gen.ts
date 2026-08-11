@@ -10,10 +10,16 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ClipsRouteImport } from './routes/clips'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ToursRouteImport } from './routes/tours'
+import { Route as AuthDashboardRouteImport } from './routes/_auth.dashboard'
+import { Route as AuthTicketsRouteImport } from './routes/_auth.tickets'
+import { Route as AuthWatchlistRouteImport } from './routes/_auth.watchlist'
 import { Route as ComediansIndexRouteImport } from './routes/comedians.index'
 import { Route as ComediansSlugRouteImport } from './routes/comedians.$slug'
 import { Route as SpecialsIndexRouteImport } from './routes/specials.index'
@@ -22,6 +28,10 @@ import { Route as SpecialsIdRouteImport } from './routes/specials.$id'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -34,15 +44,40 @@ const ClipsRoute = ClipsRouteImport.update({
   path: '/clips',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
   path: '/tours',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthDashboardRoute = AuthDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthTicketsRoute = AuthTicketsRouteImport.update({
+  id: '/tickets',
+  path: '/tickets',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthWatchlistRoute = AuthWatchlistRouteImport.update({
+  id: '/watchlist',
+  path: '/watchlist',
+  getParentRoute: () => AuthRoute,
 } as any)
 const ComediansIndexRoute = ComediansIndexRouteImport.update({
   id: '/comedians/',
@@ -69,8 +104,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/clips': typeof ClipsRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/signup': typeof SignupRoute
   '/tours': typeof ToursRoute
+  '/dashboard': typeof AuthDashboardRoute
+  '/tickets': typeof AuthTicketsRoute
+  '/watchlist': typeof AuthWatchlistRoute
   '/comedians/$slug': typeof ComediansSlugRoute
   '/specials/$id': typeof SpecialsIdRoute
   '/comedians/': typeof ComediansIndexRoute
@@ -80,8 +120,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/clips': typeof ClipsRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/signup': typeof SignupRoute
   '/tours': typeof ToursRoute
+  '/dashboard': typeof AuthDashboardRoute
+  '/tickets': typeof AuthTicketsRoute
+  '/watchlist': typeof AuthWatchlistRoute
   '/comedians/$slug': typeof ComediansSlugRoute
   '/specials/$id': typeof SpecialsIdRoute
   '/comedians': typeof ComediansIndexRoute
@@ -90,10 +135,16 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_auth': typeof AuthRouteWithChildren
   '/about': typeof AboutRoute
   '/clips': typeof ClipsRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/signup': typeof SignupRoute
   '/tours': typeof ToursRoute
+  '/_auth/dashboard': typeof AuthDashboardRoute
+  '/_auth/tickets': typeof AuthTicketsRoute
+  '/_auth/watchlist': typeof AuthWatchlistRoute
   '/comedians/$slug': typeof ComediansSlugRoute
   '/specials/$id': typeof SpecialsIdRoute
   '/comedians/': typeof ComediansIndexRoute
@@ -105,8 +156,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/clips'
+    | '/login'
     | '/pricing'
+    | '/signup'
     | '/tours'
+    | '/dashboard'
+    | '/tickets'
+    | '/watchlist'
     | '/comedians/$slug'
     | '/specials/$id'
     | '/comedians/'
@@ -116,8 +172,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/clips'
+    | '/login'
     | '/pricing'
+    | '/signup'
     | '/tours'
+    | '/dashboard'
+    | '/tickets'
+    | '/watchlist'
     | '/comedians/$slug'
     | '/specials/$id'
     | '/comedians'
@@ -125,10 +186,16 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_auth'
     | '/about'
     | '/clips'
+    | '/login'
     | '/pricing'
+    | '/signup'
     | '/tours'
+    | '/_auth/dashboard'
+    | '/_auth/tickets'
+    | '/_auth/watchlist'
     | '/comedians/$slug'
     | '/specials/$id'
     | '/comedians/'
@@ -137,9 +204,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRouteWithChildren
   AboutRoute: typeof AboutRoute
   ClipsRoute: typeof ClipsRoute
+  LoginRoute: typeof LoginRoute
   PricingRoute: typeof PricingRoute
+  SignupRoute: typeof SignupRoute
   ToursRoute: typeof ToursRoute
   ComediansSlugRoute: typeof ComediansSlugRoute
   SpecialsIdRoute: typeof SpecialsIdRoute
@@ -156,6 +226,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -170,11 +247,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClipsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tours': {
@@ -183,6 +274,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/tours'
       preLoaderRoute: typeof ToursRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_auth/dashboard': {
+      id: '/_auth/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthDashboardRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/tickets': {
+      id: '/_auth/tickets'
+      path: '/tickets'
+      fullPath: '/tickets'
+      preLoaderRoute: typeof AuthTicketsRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/watchlist': {
+      id: '/_auth/watchlist'
+      path: '/watchlist'
+      fullPath: '/watchlist'
+      preLoaderRoute: typeof AuthWatchlistRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/comedians/': {
       id: '/comedians/'
@@ -215,11 +327,28 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthRouteChildren {
+  AuthDashboardRoute: typeof AuthDashboardRoute
+  AuthTicketsRoute: typeof AuthTicketsRoute
+  AuthWatchlistRoute: typeof AuthWatchlistRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthDashboardRoute: AuthDashboardRoute,
+  AuthTicketsRoute: AuthTicketsRoute,
+  AuthWatchlistRoute: AuthWatchlistRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRouteWithChildren,
   AboutRoute: AboutRoute,
   ClipsRoute: ClipsRoute,
+  LoginRoute: LoginRoute,
   PricingRoute: PricingRoute,
+  SignupRoute: SignupRoute,
   ToursRoute: ToursRoute,
   ComediansSlugRoute: ComediansSlugRoute,
   SpecialsIdRoute: SpecialsIdRoute,
@@ -229,3 +358,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
