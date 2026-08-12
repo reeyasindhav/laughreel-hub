@@ -65,6 +65,7 @@ function Home() {
               <img
                 src={hero.poster}
                 alt="Zakir Khan performing his stand-up special Tathastu"
+                fetchPriority="high"
                 className="aspect-[4/5] w-full bg-surface object-cover object-top"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background to-transparent p-8">

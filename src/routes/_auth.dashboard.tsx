@@ -5,7 +5,8 @@ import { clips, comedianName, getSpecial, specials, tourDates } from "@/lib/data
 import { useAuth } from "@/lib/auth";
 
 const TITLE = "Your Dashboard — Laughreel";
-const DESC = "Continue watching, your saved specials, upcoming tickets and recommendations tuned to your comedy taste.";
+const DESC =
+  "Continue watching, your saved specials, upcoming tickets and recommendations tuned to your comedy taste.";
 
 export const Route = createFileRoute("/_auth/dashboard")({
   head: () => ({

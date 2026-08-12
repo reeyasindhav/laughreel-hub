@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { flushSync } from "react-dom";
 
 export type User = {
   name: string;
@@ -55,10 +56,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [tickets, setTickets] = useState<string[]>([]);
 
   useEffect(() => {
-    setUser(read<User | null>(KEY, null));
-    setWatchlist(read<string[]>(WKEY, ["biswa-mast-aadmi", "landing"]));
-    setTickets(read<string[]>(TKEY, ["t1", "t3"]));
-    setReady(true);
+    flushSync(() => {
+      setUser(read<User | null>(KEY, null));
+      setWatchlist(read<string[]>(WKEY, ["biswa-mast-aadmi", "landing"]));
+      setTickets(read<string[]>(TKEY, ["t1", "t3"]));
+      setReady(true);
+    });
   }, []);
 
   const login = useCallback(async (email: string, _password: string) => {
@@ -70,7 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       joined: "March 2024",
     };
     write(KEY, next);
-    setUser(next);
+    flushSync(() => setUser(next));
     return next;
   }, []);
 
@@ -78,7 +81,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await new Promise((r) => setTimeout(r, 600));
     const next: User = { name, email, plan: "Front Row", joined: "Today" };
     write(KEY, next);
-    setUser(next);
+    flushSync(() => setUser(next));
     return next;
   }, []);
 

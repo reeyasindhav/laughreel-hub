@@ -4,7 +4,8 @@ import { AuthShell, Field } from "@/components/auth-shell";
 import { useAuth } from "@/lib/auth";
 
 const TITLE = "Log In — Laughreel";
-const DESC = "Sign in to your Laughreel account to resume specials, manage your watchlist and view your live show tickets.";
+const DESC =
+  "Sign in to your Laughreel account to resume specials, manage your watchlist and view your live show tickets.";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -57,13 +58,15 @@ function LoginPage() {
         </>
       }
     >
-      <form onSubmit={onSubmit} className="space-y-5">
+      <form onSubmit={onSubmit} className="space-y-5" aria-invalid={!!error}>
         <Field
           label="Email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
+          aria-invalid={!!error}
+          aria-describedby={error ? "login-error" : undefined}
         />
         <Field
           label="Password"
@@ -71,8 +74,12 @@ function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
+          aria-invalid={!!error}
+          aria-describedby={error ? "login-error" : undefined}
         />
-        {error && <p className="text-sm text-destructive">{error}</p>}
+        <p id="login-error" role="alert" aria-live="polite" className="text-sm text-destructive">
+          {error}
+        </p>
         <button
           type="submit"
           disabled={busy}

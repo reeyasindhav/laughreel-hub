@@ -23,7 +23,9 @@ export function AuthShell({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/20" />
         <div className="absolute inset-x-0 bottom-0 p-12">
-          <p className="font-display text-6xl leading-none text-gradient">LAUGHREEL</p>
+          <Link to="/" className="font-display text-6xl leading-none text-gradient">
+            LAUGHREEL
+          </Link>
           <p className="mt-4 max-w-md text-muted-foreground">
             Every Indian special, every viral cut, every tour date — behind one login.
           </p>

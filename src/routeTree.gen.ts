@@ -12,10 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ArtistsRouteImport } from './routes/artists'
 import { Route as ClipsRouteImport } from './routes/clips'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ToursRouteImport } from './routes/tours'
 import { Route as AuthDashboardRouteImport } from './routes/_auth.dashboard'
 import { Route as AuthTicketsRouteImport } from './routes/_auth.tickets'
@@ -39,9 +43,19 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArtistsRoute = ArtistsRouteImport.update({
+  id: '/artists',
+  path: '/artists',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ClipsRoute = ClipsRouteImport.update({
   id: '/clips',
   path: '/clips',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -54,9 +68,19 @@ const PricingRoute = PricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ToursRoute = ToursRouteImport.update({
@@ -103,10 +127,14 @@ const SpecialsIdRoute = SpecialsIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/artists': typeof ArtistsRoute
   '/clips': typeof ClipsRoute
+  '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
   '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
   '/tours': typeof ToursRoute
   '/dashboard': typeof AuthDashboardRoute
   '/tickets': typeof AuthTicketsRoute
@@ -119,10 +147,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/artists': typeof ArtistsRoute
   '/clips': typeof ClipsRoute
+  '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
   '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
   '/tours': typeof ToursRoute
   '/dashboard': typeof AuthDashboardRoute
   '/tickets': typeof AuthTicketsRoute
@@ -137,10 +169,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteWithChildren
   '/about': typeof AboutRoute
+  '/artists': typeof ArtistsRoute
   '/clips': typeof ClipsRoute
+  '/contact': typeof ContactRoute
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
   '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
   '/tours': typeof ToursRoute
   '/_auth/dashboard': typeof AuthDashboardRoute
   '/_auth/tickets': typeof AuthTicketsRoute
@@ -155,10 +191,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/artists'
     | '/clips'
+    | '/contact'
     | '/login'
     | '/pricing'
+    | '/privacy'
     | '/signup'
+    | '/terms'
     | '/tours'
     | '/dashboard'
     | '/tickets'
@@ -171,10 +211,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/artists'
     | '/clips'
+    | '/contact'
     | '/login'
     | '/pricing'
+    | '/privacy'
     | '/signup'
+    | '/terms'
     | '/tours'
     | '/dashboard'
     | '/tickets'
@@ -188,10 +232,14 @@ export interface FileRouteTypes {
     | '/'
     | '/_auth'
     | '/about'
+    | '/artists'
     | '/clips'
+    | '/contact'
     | '/login'
     | '/pricing'
+    | '/privacy'
     | '/signup'
+    | '/terms'
     | '/tours'
     | '/_auth/dashboard'
     | '/_auth/tickets'
@@ -206,10 +254,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRouteWithChildren
   AboutRoute: typeof AboutRoute
+  ArtistsRoute: typeof ArtistsRoute
   ClipsRoute: typeof ClipsRoute
+  ContactRoute: typeof ContactRoute
   LoginRoute: typeof LoginRoute
   PricingRoute: typeof PricingRoute
+  PrivacyRoute: typeof PrivacyRoute
   SignupRoute: typeof SignupRoute
+  TermsRoute: typeof TermsRoute
   ToursRoute: typeof ToursRoute
   ComediansSlugRoute: typeof ComediansSlugRoute
   SpecialsIdRoute: typeof SpecialsIdRoute
@@ -240,11 +292,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/artists': {
+      id: '/artists'
+      path: '/artists'
+      fullPath: '/artists'
+      preLoaderRoute: typeof ArtistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/clips': {
       id: '/clips'
       path: '/clips'
       fullPath: '/clips'
       preLoaderRoute: typeof ClipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -261,11 +327,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signup': {
       id: '/signup'
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tours': {
@@ -345,10 +425,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRouteWithChildren,
   AboutRoute: AboutRoute,
+  ArtistsRoute: ArtistsRoute,
   ClipsRoute: ClipsRoute,
+  ContactRoute: ContactRoute,
   LoginRoute: LoginRoute,
   PricingRoute: PricingRoute,
+  PrivacyRoute: PrivacyRoute,
   SignupRoute: SignupRoute,
+  TermsRoute: TermsRoute,
   ToursRoute: ToursRoute,
   ComediansSlugRoute: ComediansSlugRoute,
   SpecialsIdRoute: SpecialsIdRoute,
@@ -358,3 +442,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

@@ -16,18 +16,31 @@ import { AuthProvider } from "../lib/auth";
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+      <div className="max-w-lg text-center">
+        <h1 className="font-display text-8xl text-primary">404</h1>
+        <h2 className="mt-4 text-2xl font-semibold text-foreground">Page not found</h2>
+        <p className="mt-3 text-muted-foreground">
+          The page you're looking for doesn't exist or has been moved. Here are some helpful links
+          to get you back on track.
         </p>
-        <div className="mt-6">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="rounded-xl bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[var(--shadow-neon)] transition-all hover:brightness-110"
           >
             Go home
+          </Link>
+          <Link
+            to="/specials"
+            className="rounded-xl border border-border px-6 py-3 text-sm font-bold transition-colors hover:bg-surface"
+          >
+            Browse specials
+          </Link>
+          <Link
+            to="/tours"
+            className="rounded-xl border border-border px-6 py-3 text-sm font-bold transition-colors hover:bg-surface"
+          >
+            Tour dates
           </Link>
         </div>
       </div>
@@ -44,29 +57,28 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+      <div className="max-w-lg text-center">
+        <h1 className="font-display text-6xl text-primary">Oops!</h1>
+        <h2 className="mt-4 text-2xl font-semibold text-foreground">This page didn't load</h2>
+        <p className="mt-3 text-muted-foreground">
+          Something went wrong on our end. You can try refreshing or head back to the homepage.
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="rounded-xl bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[var(--shadow-neon)] transition-all hover:brightness-110"
           >
             Try again
           </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          <Link
+            to="/"
+            className="rounded-xl border border-border px-6 py-3 text-sm font-bold transition-colors hover:bg-surface"
           >
             Go home
-          </a>
+          </Link>
         </div>
       </div>
     </div>
@@ -118,6 +130,12 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-primary-foreground focus:shadow-[var(--shadow-neon)]"
+        >
+          Skip to content
+        </a>
         {children}
         <Scripts />
       </body>
@@ -132,7 +150,9 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
+        <div id="main-content">
+          <Outlet />
+        </div>
       </AuthProvider>
     </QueryClientProvider>
   );

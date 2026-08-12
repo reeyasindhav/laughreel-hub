@@ -148,7 +148,11 @@ function ComedianProfile() {
                         : "bg-primary text-primary-foreground shadow-[var(--shadow-neon)] hover:brightness-110"
                   }`}
                 >
-                  {t.soldOut ? "Sold Out" : tickets.includes(t.id) ? "Booked ✓" : `Tickets ${t.price}`}
+                  {t.soldOut
+                    ? "Sold Out"
+                    : tickets.includes(t.id)
+                      ? "Booked ✓"
+                      : `Tickets ${t.price}`}
                 </button>
               </div>
             ))}

@@ -4,8 +4,7 @@ Laughreel - Comedy & Stand-Up Platform: Please create a ui ux design for this si
 
 Make sure to create a design-focused website. make sure to check on internet for images, do not generate images. Use real images and artist-related details in the site.  
 the final site should be production ready with functional implementation it should include minimum of 8 to 10 pages, including login/signup pages and authenticated pages like dashboard. The focus should be on design while maintaining mockup data.
-Add animayions to the site and please give a simple useer flow in response.  
-
+Add animayions to the site and please give a simple useer flow in response.
 
 Problem Statement: Indian stand-up comedy and digital sketches have seen explosive growth, yet content remains scattered across general-purpose video platforms and fragmented social media feeds. Audiences struggle to discover full-length comedy specials, track upcoming live tour dates, and explore curated comedian profiles in one dedicated hub. Existing platforms lack tailored features for comedy lovers-such as instant clip previews, seamless tour ticketing integration, and specialised categorisation by sub-genre or language.
 

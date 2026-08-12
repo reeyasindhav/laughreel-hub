@@ -41,7 +41,9 @@ function SpecialDetail() {
   const { watchlist, toggleWatchlist } = useAuth();
   const [playing, setPlaying] = useState(false);
   const saved = watchlist.includes(special.id);
-  const related = specials.filter((s) => s.id !== special.id && s.genre === special.genre).slice(0, 4);
+  const related = specials
+    .filter((s) => s.id !== special.id && s.genre === special.genre)
+    .slice(0, 4);
 
   return (
     <PageShell>

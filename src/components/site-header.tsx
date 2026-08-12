@@ -1,5 +1,17 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { SearchCommand } from "@/components/search-command";
 import { useAuth } from "@/lib/auth";
 
 const nav = [
@@ -9,10 +21,20 @@ const nav = [
   { to: "/clips", label: "Clips" },
 ] as const;
 
+const footerLinks = [
+  { to: "/pricing", label: "Membership" },
+  { to: "/about", label: "About Laughreel" },
+  { to: "/artists", label: "For Artists" },
+  { to: "/contact", label: "Contact" },
+  { to: "/privacy", label: "Privacy Policy" },
+  { to: "/terms", label: "Terms of Service" },
+] as const;
+
 export function SiteHeader() {
   const { user, logout, ready } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
@@ -58,12 +80,25 @@ export function SiteHeader() {
               >
                 Dashboard
               </Link>
-              <button
-                onClick={logout}
-                className="rounded-full border border-border px-5 py-2.5 text-sm font-bold transition-colors hover:bg-surface"
-              >
-                Sign out
-              </button>
+              <AlertDialog open={logoutOpen} onOpenChange={setLogoutOpen}>
+                <AlertDialogTrigger asChild>
+                  <button className="rounded-full border border-border px-5 py-2.5 text-sm font-bold transition-colors hover:bg-surface">
+                    Sign out
+                  </button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Sign out of Laughreel?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      You'll need to log in again to access your watchlist, tickets, and specials.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={logout}>Yes, sign out</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
               <span className="grid size-10 place-items-center rounded-full bg-primary/20 font-display text-lg text-primary ring-1 ring-primary/40">
                 {user.name.slice(0, 2).toUpperCase()}
               </span>
@@ -86,6 +121,8 @@ export function SiteHeader() {
           )}
           <button
             aria-label="Toggle menu"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
             className="ml-1 rounded-lg border border-border p-2 md:hidden"
           >
@@ -96,16 +133,26 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="glass-panel border-t border-border px-6 py-4 md:hidden">
+        <div id="mobile-menu" className="glass-panel border-t border-border px-6 py-4 md:hidden">
           <div className="flex flex-col gap-3 text-sm font-medium">
             {nav.map((item) => (
               <Link key={item.to} to={item.to} className="py-1">
                 {item.label}
               </Link>
             ))}
+            <div className="my-2 h-px bg-border" />
+            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              More
+            </p>
+            {footerLinks.map((item) => (
+              <Link key={item.to} to={item.to} className="py-1 text-muted-foreground">
+                {item.label}
+              </Link>
+            ))}
           </div>
         </div>
       )}
+      <SearchCommand />
     </nav>
   );
 }

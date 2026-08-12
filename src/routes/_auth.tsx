@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { PageShell } from "@/components/page-shell";
 import { useAuth } from "@/lib/auth";
 
@@ -17,9 +17,19 @@ function AuthGate() {
   const { user, ready } = useAuth();
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const mountedRef = useRef(true);
 
   useEffect(() => {
-    if (ready && !user) navigate({ to: "/login" });
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (ready && !user && mountedRef.current) {
+      navigate({ to: "/login" });
+    }
   }, [ready, user, navigate]);
 
   if (!ready || !user) {

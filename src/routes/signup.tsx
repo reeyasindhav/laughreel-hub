@@ -4,7 +4,8 @@ import { AuthShell, Field } from "@/components/auth-shell";
 import { useAuth } from "@/lib/auth";
 
 const TITLE = "Create Your Laughreel Account";
-const DESC = "Join Laughreel to stream Indian stand-up specials ad-free, build a watchlist and get early access to live tour tickets.";
+const DESC =
+  "Join Laughreel to stream Indian stand-up specials ad-free, build a watchlist and get early access to live tour tickets.";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({
@@ -56,12 +57,14 @@ function SignupPage() {
         </>
       }
     >
-      <form onSubmit={onSubmit} className="space-y-5">
+      <form onSubmit={onSubmit} className="space-y-5" aria-invalid={!!error}>
         <Field
           label="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Kripalsinh"
+          aria-invalid={!!error}
+          aria-describedby={error ? "signup-error" : undefined}
         />
         <Field
           label="Email"
@@ -69,6 +72,8 @@ function SignupPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
+          aria-invalid={!!error}
+          aria-describedby={error ? "signup-error" : undefined}
         />
         <Field
           label="Password"
@@ -76,8 +81,12 @@ function SignupPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="At least 6 characters"
+          aria-invalid={!!error}
+          aria-describedby={error ? "signup-error" : undefined}
         />
-        {error && <p className="text-sm text-destructive">{error}</p>}
+        <p id="signup-error" role="alert" aria-live="polite" className="text-sm text-destructive">
+          {error}
+        </p>
         <button
           type="submit"
           disabled={busy}

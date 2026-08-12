@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { PageHeader, PageShell } from "@/components/page-shell";
 import { Reveal } from "@/components/reveal";
 import { TourCard } from "@/components/cards";
+import { ConfirmBookingDialog } from "@/components/confirm-booking-dialog";
 import { tourDates } from "@/lib/data";
 import { useAuth } from "@/lib/auth";
 
@@ -25,6 +26,7 @@ export const Route = createFileRoute("/tours")({
 function ToursPage() {
   const { tickets, bookTicket } = useAuth();
   const [city, setCity] = useState("All cities");
+  const [confirmTour, setConfirmTour] = useState<(typeof tourDates)[number] | null>(null);
   const cities = useMemo(() => ["All cities", ...new Set(tourDates.map((t) => t.city))], []);
   const list = tourDates.filter((t) => (city === "All cities" ? true : t.city === city));
 
@@ -62,11 +64,17 @@ function ToursPage() {
         <div className="grid gap-6 md:grid-cols-3">
           {list.map((t, i) => (
             <Reveal key={t.id} delay={i * 70}>
-              <TourCard tour={t} booked={tickets.includes(t.id)} onBook={() => bookTicket(t.id)} />
+              <TourCard tour={t} booked={tickets.includes(t.id)} onBook={() => setConfirmTour(t)} />
             </Reveal>
           ))}
         </div>
       </section>
+      <ConfirmBookingDialog
+        tour={confirmTour}
+        open={!!confirmTour}
+        onOpenChange={(open) => setConfirmTour(open ? confirmTour : null)}
+        onConfirm={(tour) => bookTicket(tour.id)}
+      />
     </PageShell>
   );
 }

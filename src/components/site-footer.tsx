@@ -4,7 +4,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border py-20">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-12 md:grid-cols-4">
+        <div className="grid gap-12 md:grid-cols-5">
           <div className="md:col-span-2">
             <h2 className="mb-6 font-display text-5xl text-gradient">LAUGHREEL</h2>
             <p className="max-w-sm text-muted-foreground">
@@ -51,13 +51,28 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard" className="hover:text-primary">
-                  Your Dashboard
+                <Link to="/artists" className="hover:text-primary">
+                  For Artists
                 </Link>
               </li>
               <li>
-                <Link to="/signup" className="hover:text-primary">
-                  For Artists
+                <Link to="/contact" className="hover:text-primary">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h5 className="mb-6 font-bold">Legal</h5>
+            <ul className="space-y-4 text-sm text-muted-foreground">
+              <li>
+                <Link to="/privacy" className="hover:text-primary">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="hover:text-primary">
+                  Terms of Service
                 </Link>
               </li>
             </ul>
